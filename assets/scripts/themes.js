@@ -13,5 +13,4 @@ function changeTheme() {
     };
 
     localStorage.setItem("theme", typeTheme);
-    location.reload();
 };
