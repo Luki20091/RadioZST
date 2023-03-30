@@ -7,8 +7,8 @@
     --font-color: #c0c3d2;
     --font-color-hover: #eaf1ff;
     --font-default: 'Comfortaa';
-    --transition-bounce: 500ms cubic-bezier(1, 0.7, 0.5, 1.4) top;
-    --transition-loader: 600ms opacity;
+    --transition-bounce: 600ms cubic-bezier(1, 0.7, 0.5, 1.4) top;
+    --transition-loader: 1200ms opacity;
     --transition: 100ms;
     --shadow: 1px 1px rgba(0, 0, 20, 0.3);
     --blur: blur(10px);
@@ -113,5 +113,5 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     transition: var(--transition-loader);
-    opacity: 90%;
+    opacity: 100%;
 }
