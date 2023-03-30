@@ -4,14 +4,14 @@ locations.forEach(function (loc, index) {
 	loc.addEventListener('click', function (e) {
 		if (e.target.id == "") {
 			if (e.target.parentElement.id == "index") {
-				location.href = "";
+				location.replace('https://luki20091.github.io/RadioZST');
 			} else {
-				location.href = e.target.parentElement.id + ".html"
+				location.replace('https://luki20091.github.io/RadioZST/' + e.target.parentElement.id);
 			};
 		} else if (e.target.id == "index") {
-			location.href = "";
+			location.replace('https://luki20091.github.io/RadioZST');
 		} else {
-			location.href = e.target.id + ".html"
+			location.replace('https://luki20091.github.io/RadioZST/' + e.target.id);
 		};
 	});
 });
