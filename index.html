@@ -18,14 +18,26 @@
 <body>
 	<section id="loader"><i class="fa-solid fa-microphone fa-flip fa-2xl"></i></section>
 	<section id="menuBarContainer">
-		<a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną."><i class="fa-solid fa-microphone fa-xl"></i>&nbsp;RadioZST</a>
+		<a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną." tabindex="1"><i class="fa-solid fa-microphone fa-xl"></i>&nbsp;RadioZST</a>
 		<div>
-			<a class="menuBarItem" id="theme" title="Kliknij, aby zmienić motyw na ciemny."><i class="fa-solid fa-circle-half-stroke fa-xl"></i></a>
-			<a class="menuBarItem button" id="panel" title="Kliknij, aby przejść do panelu administracyjnego."><i class="fa-solid fa-screwdriver-wrench fa-xl"></i></a>
+			<a class="menuBarItem" id="theme" title="Kliknij, aby zmienić motyw na ciemny." tabindex="2"><i class="fa-solid fa-circle-half-stroke fa-xl"></i></a>
+			<a class="menuBarItem button" id="panel" title="Kliknij, aby przejść do panelu administracyjnego." tabindex="3"><i class="fa-solid fa-screwdriver-wrench fa-xl"></i></a>
 		</div>
 	</section>
-
-
+	<section id="songFormContainer">
+		<h3>Zaproponuj&nbsp;piosenkę:</h3>
+		<form class="form">
+			<input type="text" id="songName" placeholder=" Tytuł piosenki / link " autocomplete="off" spellcheck="false" tabindex="4">
+			<a id="songSend" class="sendItem" tabindex="5"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+		</form>
+	</section>
+	<section id="orderFormContainer">
+		<h3>Zamów&nbsp;pozdrowienia:</h3>
+		<form class="form">
+			<input type="text" id="orderName" placeholder=" Imie nazwisko / klasa " autocomplete="off" spellcheck="false" tabindex="6">
+			<a id="orderSend" class="orderItem" tabindex="7"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+		</form>
+	</section>
 
 
 	<script>
@@ -37,9 +49,9 @@
 			document.body.dataset.theme = localStorage.getItem("theme");
 
 			if (document.body.dataset.theme == "light") {
-                document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny";
+				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny";
 			} else {
-                document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny";
+				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny";
 			};
 		} catch (e) {
 			document.body.dataset.theme = null;
