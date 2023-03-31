@@ -10,7 +10,7 @@
     --transition-bounce: 600ms cubic-bezier(1, 0.1, 0.5, 1.4) top, width, height;
     --transition-bounce2: 750ms cubic-bezier(1, 0.2, 0.5, 1.4) top, width, height;
     --transition-bounce3: 900ms cubic-bezier(1, 0.3, 0.5, 1.4) top, width, height;
-    --transition-loader: 800ms opacity;
+    --transition-loader: 500ms opacity;
     --transition: 100ms;
     --shadow: 1px 1px rgba(0, 0, 20, 0.3);
     --blur: blur(10px);
@@ -117,7 +117,20 @@ body {
     transform: translate(-50%, -50%);
     transition: var(--transition-loader);
     opacity: 100%;
-    z-index: 10;
+    z-index: 1000;
+}
+
+#loader2 {
+    display: block;
+    position: fixed;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    transition: var(--transition-loader);
+    background-color: var(--background-color-dark);
+    opacity: 100%;
+    z-index: 800;
 }
 
 

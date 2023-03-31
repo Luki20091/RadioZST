@@ -17,6 +17,7 @@
 
 <body>
 	<section id="loader"><i class="fa-solid fa-microphone fa-flip fa-2xl"></i></section>
+	<section id="loader2"></section>
 	<section id="menuBarContainer">
 		<a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną."><i class="fa-solid fa-microphone fa-xl"></i>&nbsp;RadioZST</a>
 		<div id="menuBarSecondContainer">
@@ -36,9 +37,9 @@
 			document.body.dataset.theme = localStorage.getItem("theme");
 
 			if (document.body.dataset.theme == "light") {
-                document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny";
+				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny";
 			} else {
-                document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny";
+				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny";
 			};
 		} catch (e) {
 			document.body.dataset.theme = null;
