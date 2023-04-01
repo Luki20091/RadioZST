@@ -2,10 +2,10 @@
 
 
 :root {
-	--background-color: #1e1e2c;
-	--background-color-dark: #12121a;
-	--font-color: #b4badc;
-	--font-color-hover: #dae6ff;
+	--background-color: #1b1a2c;
+	--background-color-dark: #11101b;
+	--font-color: #bcc4f1;
+	--font-color-hover: #e6eeff;
 	--font-default: 'Comfortaa';
 	--transition-bounce: 600ms cubic-bezier(1, 0.1, 0.5, 1.4) top, width, height;
 	--transition-bounce2: 750ms cubic-bezier(1, 0.2, 0.5, 1.4) top, width, height;
@@ -18,10 +18,10 @@
 
 
 body[data-theme=light] {
-	--background-color: #dae6ff;
-	--background-color-dark: #b4badc;
-	--font-color: #1e1e2c;
-	--font-color-hover: #12121a;
+	--background-color-dark: #bcc4f1;
+	--background-color: #e6eeff;
+	--font-color-hover: #11101b;
+	--font-color: #1b1a2c;
 	--shadow: 1px 1px rgba(160, 160, 180, 0.3);
 }
 
@@ -49,7 +49,7 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: var(--background-color);
-	color: var(--font-color);
+	color: var(--font-color-hover);
 	font-family: var(--font-default);
 	font-weight: 700;
 	font-size: 140%;
@@ -89,6 +89,14 @@ body {
 }
 
 .menuBarItem:hover {
+	color: var(--font-color-hover);
+	background-color: var(--background-color);
+	box-shadow: var(--shadow);
+}
+
+.menuBarItem:focus {
+	border: 0;
+	outline: 0;
 	color: var(--font-color-hover);
 	background-color: var(--background-color);
 	box-shadow: var(--shadow);
