@@ -1,7 +1,4 @@
 ## RadioZST
-Proponowanie piosenek, pozdrawianie...
-
-## Strony
 - [Kliknij, aby przejść na stronę główną](https://luki20091.github.io/RadioZST)
 - [Kliknij, aby przejść do panelu administacyjego](https://luki20091.github.io/RadioZST/panel)
 
