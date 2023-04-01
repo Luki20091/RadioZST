@@ -26,18 +26,18 @@
 		</div>
 	</section>
 	<section id="songFormContainer">
-		<h3>Zaproponuj&nbsp;piosenkę:</h3>
-		<form class="form">
-			<input type="text" id="songName" placeholder=" Tytuł piosenki / link " autocomplete="off" spellcheck="false" tabindex="4">
-			<a id="songSend" class="sendItem" tabindex="5"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
-		</form>
+		<h3>Zaproponuj:</h3>
+		<div class="form">
+			<input type="text" id="songName" placeholder="Tytuł piosenki / link" autocomplete="off" spellcheck="false" tabindex="4">
+			<a id="songSend" tabindex="5"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+		</div>
 	</section>
 	<section id="orderFormContainer">
-		<h3>Zamów&nbsp;pozdrowienia:</h3>
-		<form class="form">
-			<input type="text" id="orderName" placeholder=" Imie nazwisko / klasa " autocomplete="off" spellcheck="false" tabindex="6">
-			<a id="orderSend" class="orderItem" tabindex="7"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
-		</form>
+		<h3>Pozdrów:</h3>
+		<div class="form">
+			<input type="text" id="orderName" placeholder="Imie nazwisko / klasa" autocomplete="off" spellcheck="false" tabindex="6">
+			<a id="orderSend" tabindex="7"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+		</div>
 	</section>
 
 
@@ -61,5 +61,65 @@
 	<script language="javascript" src="assets/scripts/themes.js"></script>
 	<script language="javascript" src="assets/scripts/loader.js"></script>
 	<script language="javascript" src="assets/scripts/locations.js"></script>
+	<script language="javascript" src="assets/scripts/date.js"></script>
+
+
+
+
+	<script type="module">
+
+
+
+
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
+		import { getDatabase, ref, set, get, push} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHKT0KBIMYnPJchO4uQk72oQnusS-8Clc",
+            authDomain: "radiozst-2a12a.firebaseapp.com",
+            databaseURL: "https://radiozst-2a12a-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "radiozst-2a12a",
+            storageBucket: "radiozst-2a12a.appspot.com",
+            messagingSenderId: "1005078657962",
+            appId: "1:1005078657962:web:66dc88e2e381c5834689d3"
+        };
+		const app = initializeApp(firebaseConfig);
+
+
+        document.getElementById("songSend").addEventListener("click", function (e) {
+            songSend();
+		});
+        document.getElementById("songName").addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                songSend();
+			};
+		});
+
+        function songSend() {
+            const db = getDatabase();
+            const songsRef = ref(db, "songs/" + getDateString6());
+            const name = document.getElementById("songName");
+			const nameVal = name.value;
+			if (nameVal.length < 3) {
+				console.log("Minimalnie 3 znaki");
+			} else {
+				document.activeElement?.blur && document.activeElement.blur();
+				name.value = "";
+				get(songsRef).then((snapshot) => {
+                    if (1 == 2 /*        localStorage.getItem("songDateInt") != null && (getDateInt() - localStorage.getItem("songDateInt")) < 7200       */) {
+						console.log("Można proponować co 2 godziny");
+					} else {
+						const newSongsListRef = push(songsRef);
+						set(newSongsListRef, {
+							dateInt: getDateInt(),
+							dateString: getDateString4(),
+							name: nameVal
+						});
+                        localStorage.setItem("songDateInt", getDateInt());
+					};
+				});
+			};
+		};
+	</script>
 </body>
 </html>

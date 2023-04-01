@@ -4,10 +4,6 @@ const menuBarContainer = document.getElementById("menuBarContainer");
 const songFormContainer = document.getElementById("songFormContainer");
 const orderFormContainer = document.getElementById("orderFormContainer");
 
-window.addEventListener("load", function () {
-    load();
-});
-
 setTimeout(function load() {
     loader.classList.add("loader-hidden");
     loader2.classList.add("loader-hidden");
