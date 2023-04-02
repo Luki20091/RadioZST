@@ -1,5 +1,5 @@
-var xmlHttp;
 function srvTime() {
+	var xmlHttp;
 	try {
 		xmlHttp = new XMLHttpRequest();
 	}
@@ -20,7 +20,7 @@ function srvTime() {
 	xmlHttp.setRequestHeader("Content-Type", "text/html");
 	xmlHttp.send('');
 	return xmlHttp.getResponseHeader("Date");
-}
+};
 
 
 function getDateString() {
