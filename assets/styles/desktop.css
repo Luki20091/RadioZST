@@ -186,11 +186,6 @@ body {
 }
 
 
-.songFormContainer-visible {
-	top: 25% !important;
-}
-
-
 #orderFormContainer {
 	position: absolute;
 	top: -200px;
@@ -214,8 +209,13 @@ body {
 }
 
 
+
+.songFormContainer-visible {
+	top: 25% !important;
+}
+
 .orderFormContainer-visible {
-	top: 64% !important;
+	top: 65% !important;
 }
 
 
