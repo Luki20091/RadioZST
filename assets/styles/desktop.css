@@ -246,6 +246,7 @@ body {
 	border-bottom: 2px solid var(--font-color);
 	color: var(--font-color-hover);
 	text-shadow: var(--shadow);
+    font-size: 15px;
 }
 
 .form input::placeholder {
