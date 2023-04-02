@@ -72,59 +72,108 @@
 
 
 		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
-		import { getDatabase, ref, set, get, push} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js";
+		import { getDatabase, ref, set, get, push } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDHKT0KBIMYnPJchO4uQk72oQnusS-8Clc",
-            authDomain: "radiozst-2a12a.firebaseapp.com",
-            databaseURL: "https://radiozst-2a12a-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "radiozst-2a12a",
-            storageBucket: "radiozst-2a12a.appspot.com",
-            messagingSenderId: "1005078657962",
-            appId: "1:1005078657962:web:66dc88e2e381c5834689d3"
-        };
+		const firebaseConfig = {
+			apiKey: "AIzaSyDHKT0KBIMYnPJchO4uQk72oQnusS-8Clc",
+			authDomain: "radiozst-2a12a.firebaseapp.com",
+			databaseURL: "https://radiozst-2a12a-default-rtdb.europe-west1.firebasedatabase.app",
+			projectId: "radiozst-2a12a",
+			storageBucket: "radiozst-2a12a.appspot.com",
+			messagingSenderId: "1005078657962",
+			appId: "1:1005078657962:web:66dc88e2e381c5834689d3"
+		};
 		const app = initializeApp(firebaseConfig);
 
 
-        document.getElementById("songSend").addEventListener("click", function (e) {
-            songSend();
-        });
-        document.getElementById("songSend").addEventListener("keyup", ({ key }) => {
+		document.getElementById("songSend").addEventListener("click", function (e) {
+			songSend();
+		});
+		document.getElementById("songSend").addEventListener("keyup", ({ key }) => {
 			if (key === "Enter") {
-                songSend();
-            };
-        });
-        document.getElementById("songName").addEventListener("keyup", ({ key }) => {
-            if (key === "Enter") {
-                songSend();
+				songSend();
+			};
+		});
+		document.getElementById("songName").addEventListener("keyup", ({ key }) => {
+			if (key === "Enter") {
+				songSend();
 			};
 		});
 
-        function songSend() {
-            const db = getDatabase();
-            const songsRef = ref(db, "songs/" + getDateString6());
-            const name = document.getElementById("songName");
-			const nameVal = name.value;
-			if (nameVal.length < 3) {
+		function songSend() {
+			const db = getDatabase();
+			const songsRef = ref(db, "songs/" + getDateString6());
+			const song = document.getElementById("songName");
+            const songVal = song.value;
+            if (songVal.length < 3) {
 				console.log("Minimalnie 3 znaki");
 			} else {
 				document.activeElement?.blur && document.activeElement.blur();
-				name.value = "";
+                song.value = "";
 				get(songsRef).then((snapshot) => {
-                    if (1 == 2 /*        localStorage.getItem("songDateInt") != null && (getDateInt() - localStorage.getItem("songDateInt")) < 7200       */) {
+					if (1 == 2 /*        localStorage.getItem("songDateInt") != null && (getDateInt() - localStorage.getItem("songDateInt")) < 7200       */) {
 						console.log("Można proponować co 2 godziny");
 					} else {
 						const newSongsListRef = push(songsRef);
 						set(newSongsListRef, {
 							dateInt: getDateInt(),
 							dateString: getDateString4(),
-							name: nameVal
+                            songName: songVal
 						});
-                        localStorage.setItem("songDateInt", getDateInt());
+						localStorage.setItem("songDateInt", getDateInt());
 					};
 				});
 			};
 		};
+
+
+
+
+
+
+
+
+
+        document.getElementById("orderSend").addEventListener("click", function (e) {
+            orderSend();
+        });
+        document.getElementById("orderSend").addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                orderSend();
+            };
+        });
+        document.getElementById("orderName").addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                orderSend();
+            };
+        });
+
+
+        function orderSend() {
+            const db = getDatabase();
+            const ordersRef = ref(db, "orders/" + getDateString6());
+            const order = document.getElementById("orderName");
+            const orderVal = order.value;
+            if (orderVal.length < 3) {
+                console.log("Minimalnie 3 znaki");
+            } else {
+                document.activeElement?.blur && document.activeElement.blur();
+                order.value = "";
+                get(ordersRef).then((snapshot) => {
+                    if (1 == 2 /*        localStorage.getItem("orderDateInt") != null && (getDateInt() - localStorage.getItem("orderDateInt")) < 7200       */) {
+                        console.log("Można proponować co 2 godziny");
+                    } else {
+                        const newOrdersListRef = push(ordersRef);
+                        set(newOrdersListRef, {
+                            dateInt: getDateInt(),
+                            dateString: getDateString4(),
+                            orderName: orderVal
+                        });
+                        localStorage.setItem("orderDateInt", getDateInt());
+                    };
+                });
+            };
+        };
 	</script>
 </body>
 </html>
