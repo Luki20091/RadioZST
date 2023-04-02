@@ -160,10 +160,7 @@ body {
 
 
 
-
-
-
-#songFormContainer {
+.formsContainer {
 	position: absolute;
 	top: -200px;
 	left: 50%;
@@ -182,43 +179,25 @@ body {
 	background-color: var(--background-color-dark);
 	box-shadow: var(--shadow);
 	transition: var(--transition-bounce2);
-	z-index: 50;
-}
-
-
-#orderFormContainer {
-	position: absolute;
-	top: -200px;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 50%;
-	height: min-content;
-	padding: 20px;
-	border-radius: 15px;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	align-content: center;
-	justify-content: space-evenly;
-	align-items: center;
-	text-align: center;
-	background-color: var(--background-color-dark);
-	box-shadow: var(--shadow);
-	transition: var(--transition-bounce2);
-	z-index: 50;
 }
 
 
 
 .songFormContainer-visible {
 	top: 24% !important;
+	z-index: 50;
 }
 
 .orderFormContainer-visible {
 	top: 63% !important;
+	z-index: 40;
 }
 
-
+.loginFormContainer-visible {
+	top: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	z-index: 50;
+}
 
 
 .form {
@@ -270,3 +249,20 @@ section h3 {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#loginPassword, #loginSend {
+	display: none;
+}

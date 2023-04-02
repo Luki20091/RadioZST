@@ -19,34 +19,195 @@
 	<section id="loader"><i class="fa-solid fa-microphone fa-flip fa-2xl"></i></section>
 	<section id="loader2"></section>
 	<section id="menuBarContainer">
-		<a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną."><i class="fa-solid fa-microphone fa-xl"></i>&nbsp;RadioZST</a>
+		<a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną." tabindex="1"><i class="fa-solid fa-microphone fa-xl"></i>&nbsp;RadioZST</a>
 		<div id="menuBarSecondContainer">
-			<a class="menuBarItem" id="theme" title="Kliknij, aby zmienić motyw na ciemny."><i class="fa-solid fa-circle-half-stroke fa-xl"></i></a>
-			<a class="menuBarItem" id="logout" title="Kliknij, aby się wylogować."><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
+			<a class="menuBarItem" id="theme" title="Kliknij, aby zmienić motyw na ciemny." tabindex="2"><i class="fa-solid fa-circle-half-stroke fa-xl"></i></a>
+			<a class="menuBarItem" id="info" title="Kliknij, aby dowiedzieć się więcej." tabindex="3"><i class="fa-solid fa-circle-info fa-xl"></i></a>
+			<a class="menuBarItem" id="logout" title="Kliknij, aby się wylogować." tabindex="4"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
+		</div>
+	</section>
+	<section id="loginFormContainer" class="formsContainer">
+		<h3>Logowanie:</h3>
+		<div class="form">
+			<input type="email" id="loginEmail" placeholder="Email" autocomplete="off" spellcheck="false" tabindex="4">
+			<input type="password" id="loginPassword" placeholder="Hasło" autocomplete="off" spellcheck="false" tabindex="5">
+			<a id="loginNext" class="menuBarItem" tabindex="6"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
+			<a id="loginSend" class="menuBarItem" tabindex="6"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
 		</div>
 	</section>
 
 
 
 	<script>
-
-
-	</script>
-	<script>
 		try {
 			document.body.dataset.theme = localStorage.getItem("theme");
 
 			if (document.body.dataset.theme == "light") {
-				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny";
+				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny.";
 			} else {
-				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny";
+				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
 			};
 		} catch (e) {
-			document.body.dataset.theme = null;
+			localStorage.setItem("theme", "dark");
+			document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
 		};
+	</script>
+	<script>
+		window.onload = function () {
+			if (typeof window.localStorage !== "undefined" && !localStorage.getItem('theme')) {
+				localStorage.setItem('theme', "dark");
+			};
+		};
+	</script>
+	<script>
+		const loginFormContainer = document.getElementById("loginFormContainer");
+
+		setTimeout(function load() {
+			loginFormContainer.classList.add("loginFormContainer-visible");
+		}, 900);
 	</script>
 	<script language="javascript" src="assets/scripts/themes.js"></script>
 	<script language="javascript" src="assets/scripts/loader.js"></script>
 	<script language="javascript" src="assets/scripts/locations.js"></script>
-</body>
-</html>
+
+
+
+
+	<script type="module">
+
+
+
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
+        import { getDatabase, ref, set, child, get, update, remove, onValue, push, query, orderByChild, orderByValue, equalTo, limitToFirst, limitToLast } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, setPersistence, signInWithEmailAndPassword, browserLocalPersistence, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHKT0KBIMYnPJchO4uQk72oQnusS-8Clc",
+            authDomain: "radiozst-2a12a.firebaseapp.com",
+            databaseURL: "https://radiozst-2a12a-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "radiozst-2a12a",
+            storageBucket: "radiozst-2a12a.appspot.com",
+            messagingSenderId: "1005078657962",
+            appId: "1:1005078657962:web:66dc88e2e381c5834689d3"
+        };
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        setPersistence(auth, browserLocalPersistence)
+            .then(() => {
+                return signInWithEmailAndPassword(auth, email, password);
+            })
+            .catch((error) => {
+            });
+
+
+        document.getElementById("loginNext").addEventListener("click", function (e) {
+            loginNext();
+        });
+        document.getElementById("loginNext").addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                loginNext();
+            };
+        });
+        document.getElementById("loginEmail").addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                loginNext();
+            };
+		});
+
+
+
+        function loginNext() {
+            const email = document.getElementById("loginEmail");
+            const password = document.getElementById("loginPassword");
+            const next = document.getElementById("loginNext");
+            const send = document.getElementById("loginSend");
+
+            email.style.display = "none";
+            next.style.display = "none";
+            password.style.display = "unset";
+            send.style.display = "unset";
+            password.focus();
+
+        };
+
+
+        function loginBack() {
+            const email = document.getElementById("loginEmail");
+            const password = document.getElementById("loginPassword");
+            const next = document.getElementById("loginNext");
+            const send = document.getElementById("loginSend");
+
+            email.style.display = "unset";
+            next.style.display = "unset";
+            password.style.display = "none";
+            send.style.display = "none";
+            email.value = "";
+            password.value = "";
+            email.focus();
+
+        };
+
+
+        document.getElementById("loginSend").addEventListener("click", function (e) {
+            loginSend();
+        });
+        document.getElementById("loginSend").addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                loginSend();
+            };
+        });
+        document.getElementById("loginPassword").addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                loginSend();
+            };
+        });
+
+
+        function loginSend() {
+            //alert("info", "Sprawdzam!")
+            const email = document.getElementById("loginEmail");
+            const password = document.getElementById("loginPassword");
+
+            signInWithEmailAndPassword(auth, email.value, password.value)
+                .then(function () {
+
+                    const user = auth.currentUser
+                    const db = getDatabase();
+                    const dbRef = ref(db);
+
+                    get(child(dbRef, "admins/" + user.uid)).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            update(ref(db, "admins/" + user.uid),
+                                {
+                                    lastLogin: getDateString3(),
+                                })
+                                .then(() => {
+                                    chceckLogin();
+                                })
+                                .catch((error) => {
+                                    //alert("error", "Błędne dane logowania!");
+                                    loginBack();
+                                    return
+                                });
+                        } else {
+                            //alert("error", "Błędne dane logowania!");
+                            loginBack();
+                            return
+                        };
+                    });
+                })
+                .catch((error) => {
+                    //alert("error", "Błędne dane logowania!");
+                    loginBack();
+                    return
+                });
+        };
+
+
+
+	</script>
+</body >
+</html >
