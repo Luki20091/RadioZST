@@ -238,6 +238,23 @@ body {
 	height: 100%;
 	width: 100%;
 	margin: 0px 10px;
+	padding: 5px;
+    outline: 0;
+	border-radius: 6px;
+    background: unset;
+    border: 0;
+	border-bottom: 2px solid var(--font-color);
+	color: var(--font-color-hover);
+	text-shadow: var(--shadow);
+}
+
+.form input::placeholder {
+	color: var(--font-color);
+}
+.form input:focus {
+	border-bottom: 2px solid var(--font-color-hover);
+	background-color: var(--background-color);
+	box-shadow: var(--shadow);
 }
 
 .form button {

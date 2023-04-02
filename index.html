@@ -29,14 +29,14 @@
 		<h3>Zaproponuj:</h3>
 		<div class="form">
 			<input type="text" id="songName" placeholder="Tytuł piosenki / link" autocomplete="off" spellcheck="false" tabindex="4">
-			<a id="songSend" tabindex="5"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+			<a id="songSend" class="menuBarItem" tabindex="5"><i class="fa-solid fa-paper-plane fa-lg"></i></a>
 		</div>
 	</section>
 	<section id="orderFormContainer">
 		<h3>Pozdrów:</h3>
 		<div class="form">
 			<input type="text" id="orderName" placeholder="Imie nazwisko / klasa" autocomplete="off" spellcheck="false" tabindex="6">
-			<a id="orderSend" tabindex="7"><i class="fa-solid fa-paper-plane fa-xl"></i></a>
+			<a id="orderSend" class="menuBarItem" tabindex="7"><i class="fa-solid fa-paper-plane fa-lg"></i></a>
 		</div>
 	</section>
 
@@ -88,7 +88,12 @@
 
         document.getElementById("songSend").addEventListener("click", function (e) {
             songSend();
-		});
+        });
+        document.getElementById("songSend").addEventListener("keyup", ({ key }) => {
+			if (key === "Enter") {
+                songSend();
+            };
+        });
         document.getElementById("songName").addEventListener("keyup", ({ key }) => {
             if (key === "Enter") {
                 songSend();
