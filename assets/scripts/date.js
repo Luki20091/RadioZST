@@ -48,7 +48,9 @@ function getDateInt() {
 function getDateString6() {
 	const date = new Date();
 	const year = date.getFullYear();
-	return `${year}-${Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24)}`;
+	const month = `${date.getMonth() + 1}`.padStart(2, '0');
+	const day = `${date.getDate()}`.padStart(2, '0');
+	return `${day}-${month}-${year}-${Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24)}`;
 };
 
 
