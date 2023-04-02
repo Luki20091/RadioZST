@@ -237,6 +237,26 @@ body {
 	box-shadow: var(--shadow);
 }
 
+.form input:-webkit-autofill, .form input:-webkit-autofill:hover{
+    background: unset;
+    border: 0;
+	border-bottom: 2px solid var(--font-color);
+	color: var(--font-color-hover);
+}
+.form input:-webkit-autofill:focus {
+	border-bottom: 2px solid var(--font-color-hover);
+	background-color: var(--background-color);
+	box-shadow: var(--shadow);
+}
+
+
+
+
+
+
+
+
+
 .form button {
 	height: 100%;
 	margin: 0px 10px;
