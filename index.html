@@ -22,21 +22,21 @@
 		<a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną." tabindex="1"><i class="fa-solid fa-microphone fa-xl"></i>&nbsp;RadioZST</a>
 		<div>
 			<a class="menuBarItem" id="theme" title="Kliknij, aby zmienić motyw na ciemny." tabindex="2"><i class="fa-solid fa-circle-half-stroke fa-xl"></i></a>
-			<a class="menuBarItem button" id="panel" title="Kliknij, aby przejść do panelu administracyjnego." tabindex="3"><i class="fa-solid fa-screwdriver-wrench fa-xl"></i></a>
+			<a class="menuBarItem button" id="panel" title="Kliknij, aby przejść do panelu administracyjnego." tabindex="4"><i class="fa-solid fa-screwdriver-wrench fa-xl"></i></a>
 		</div>
 	</section>
 	<section id="songFormContainer" class="formsContainer">
 		<h3>Zaproponuj:</h3>
 		<div class="form">
-			<input type="text" id="songName" placeholder="Tytuł piosenki / link" autocomplete="off" spellcheck="false" tabindex="4">
-			<a id="songSend" class="menuBarItem" tabindex="5"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
+			<input type="text" id="songName" placeholder="Tytuł piosenki / link" autocomplete="off" spellcheck="false" tabindex="5">
+			<a id="songSend" class="menuBarItem" tabindex="6"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
 		</div>
 	</section>
-	<section id="orderFormContainer" class="formsContainer">
+	<section id="greetingFormContainer" class="formsContainer">
 		<h3>Pozdrów:</h3>
 		<div class="form">
-			<input type="text" id="orderName" placeholder="Imie nazwisko / klasa" autocomplete="off" spellcheck="false" tabindex="6">
-			<a id="orderSend" class="menuBarItem" tabindex="7"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
+			<input type="text" id="greetingName" placeholder="Imie nazwisko / klasa" autocomplete="off" spellcheck="false" tabindex="7">
+			<a id="greetingSend" class="menuBarItem" tabindex="8"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
 		</div>
 	</section>
 
@@ -46,13 +46,13 @@
 			document.body.dataset.theme = localStorage.getItem("theme");
 
 			if (document.body.dataset.theme == "light") {
-                document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny.";
+				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny.";
 			} else {
 				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
 			};
 		} catch (e) {
 			localStorage.setItem("theme", "dark");
-            document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
+			document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
 		};
 	</script>
 	<script>
@@ -66,14 +66,17 @@
 
 
 
-	const songFormContainer = document.getElementById("songFormContainer");
-	const orderFormContainer = document.getElementById("orderFormContainer");
+		const songFormContainer = document.getElementById("songFormContainer");
+		const greetingFormContainer = document.getElementById("greetingFormContainer");
 
 
-	setTimeout(function load() {
-	songFormContainer.classList.add("songFormContainer-visible");
-	orderFormContainer.classList.add("orderFormContainer-visible");
-	}, 800);
+		setTimeout(function load() {
+			songFormContainer.classList.add("songFormContainer-visible");
+		}, 800);
+
+        setTimeout(function load() {
+            greetingFormContainer.classList.add("greetingFormContainer-visible");
+        }, 900);
 
 	</script>
 	<script language="javascript" src="assets/scripts/themes.js"></script>
@@ -101,8 +104,8 @@
 			messagingSenderId: "1005078657962",
 			appId: "1:1005078657962:web:66dc88e2e381c5834689d3"
 		};
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+		const app = initializeApp(firebaseConfig);
+		const database = getDatabase(app);
 
 
 		document.getElementById("songSend").addEventListener("click", function (e) {
@@ -121,25 +124,27 @@
 
 		function songSend() {
 			const db = getDatabase();
-			const songsRef = ref(db, "songs/" + getDateString6());
+			const songsRef = ref(db, "songs/" + getDateString5());
 			const song = document.getElementById("songName");
 			const songVal = song.value;
 			if (songVal.length < 3) {
-				console.log("Minimalnie 3 znaki");
+                console.log("Minimalnie 3 znaki");
+                return;
 			} else {
 				document.activeElement?.blur && document.activeElement.blur();
 				song.value = "";
 				get(songsRef).then((snapshot) => {
-                    if (1 == 2 /*        typeof window.localStorage !== "undefined"  && (getDateInt() - localStorage.getItem("songDateInt")) < 7200      // -sprawdzić czy działa typeof    */) {
-						console.log("Można proponować co 2 godziny");
+					if (1 == 2 /*        typeof window.localStorage !== "undefined"  && (getDateInt() - localStorage.getItem("songDateInt")) < 7200      // -sprawdzić czy działa typeof    */) {
+                        console.log("Można proponować co 2 godziny");
+                        return;
 					} else {
 						const newSongsListRef = push(songsRef);
 						set(newSongsListRef, {
-							dateInt: getDateInt(),
 							dateString: getDateString4(),
 							songName: songVal
 						});
-						localStorage.setItem("songDateInt", getDateInt());
+                        localStorage.setItem("songDateInt", getDateInt());
+                        return;
 					};
 				});
 			};
@@ -153,46 +158,59 @@
 
 
 
-		document.getElementById("orderSend").addEventListener("click", function (e) {
-			orderSend();
+		document.getElementById("greetingSend").addEventListener("click", function (e) {
+			greetingSend();
 		});
-		document.getElementById("orderSend").addEventListener("keyup", ({ key }) => {
+		document.getElementById("greetingSend").addEventListener("keyup", ({ key }) => {
 			if (key === "Enter") {
-				orderSend();
+				greetingSend();
 			};
 		});
-		document.getElementById("orderName").addEventListener("keyup", ({ key }) => {
+		document.getElementById("greetingName").addEventListener("keyup", ({ key }) => {
 			if (key === "Enter") {
-				orderSend();
+				greetingSend();
 			};
 		});
 
 
-		function orderSend() {
+		function greetingSend() {
 			const db = getDatabase();
-			const ordersRef = ref(db, "orders/" + getDateString6());
-			const order = document.getElementById("orderName");
-			const orderVal = order.value;
-			if (orderVal.length < 3) {
-				console.log("Minimalnie 3 znaki");
+			const greetingsRef = ref(db, "greetings/" + getDateString5());
+			const greeting = document.getElementById("greetingName");
+			const greetingVal = greeting.value;
+			if (greetingVal.length < 3) {
+                console.log("Minimalnie 3 znaki");
+                return;
 			} else {
 				document.activeElement?.blur && document.activeElement.blur();
-				order.value = "";
-				get(ordersRef).then((snapshot) => {
-					if (1 == 2 /*        localStorage.getItem("orderDateInt") != null && (getDateInt() - localStorage.getItem("orderDateInt")) < 7200       */) {
-						console.log("Można proponować co 2 godziny");
+				greeting.value = "";
+				get(greetingsRef).then((snapshot) => {
+					if (1 == 2 /*        localStorage.getItem("greetingDateInt") != null && (getDateInt() - localStorage.getItem("greetingDateInt")) < 7200       */) {
+                        console.log("Można pozdrawiać co 2 godziny");
+                        return;
 					} else {
-						const newOrdersListRef = push(ordersRef);
-						set(newOrdersListRef, {
-							dateInt: getDateInt(),
+						const newgreetingsListRef = push(greetingsRef);
+						set(newgreetingsListRef, {
 							dateString: getDateString4(),
-							orderName: orderVal
+							greetingName: greetingVal
 						});
-						localStorage.setItem("orderDateInt", getDateInt());
+						localStorage.setItem("greetingDateInt", getDateInt());
+						return;
 					};
 				});
 			};
 		};
 	</script>
+
+
+<!--
+	ooooo        ooooo     ooo oooo    oooo ooooo
+	`888'        `888'     `8' `888   .8P'  `888'
+	 888          888       8   888  d8'     888
+	 888          888       8   88888[       888
+	 888          888       8   888`88b.     888
+	 888       o  `88.    .8'   888  `88b.   888
+	o888ooooood8    `YbodP'    o888o  o888o o888o
+-->
 </body>
 </html>

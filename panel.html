@@ -16,65 +16,70 @@
 
 
 <body>
-	<section id="loader"><i class="fa-solid fa-microphone fa-flip fa-2xl"></i></section>
-	<section id="loader2"></section>
-	<section id="menuBarContainer">
-		<a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną." tabindex="1"><i class="fa-solid fa-microphone fa-xl"></i>&nbsp;RadioZST</a>
-		<div id="menuBarSecondContainer">
-			<a class="menuBarItem" id="theme" title="Kliknij, aby zmienić motyw na ciemny." tabindex="2"><i class="fa-solid fa-circle-half-stroke fa-xl"></i></a>
-			<a class="menuBarItem" id="info" title="Kliknij, aby dowiedzieć się więcej." tabindex="3"><i class="fa-solid fa-circle-info fa-xl"></i></a>
-			<a class="menuBarItem" id="logout" title="Kliknij, aby się wylogować." tabindex="4"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
-		</div>
-	</section>
-	<section id="loginFormContainer" class="formsContainer">
-		<h3>Logowanie:</h3>
-		<div class="form">
-			<input type="email" id="loginEmail" placeholder="Email" autocomplete="off" spellcheck="false" tabindex="4">
-			<input type="password" id="loginPassword" placeholder="Hasło" autocomplete="off" spellcheck="false" tabindex="5">
-			<a id="loginNext" class="menuBarItem" tabindex="6"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
-			<a id="loginSend" class="menuBarItem" tabindex="6"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
-		</div>
-	</section>
+    <section id="loader"><i class="fa-solid fa-microphone fa-flip fa-2xl"></i></section>
+    <section id="loader2"></section>
+    <section id="menuBarContainer">
+        <a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną." tabindex="1"><i class="fa-solid fa-microphone fa-xl"></i>&nbsp;RadioZST</a>
+        <div id="menuBarSecondContainer">
+            <!--<a class="menuBarItem" id="info" title="Kliknij, aby dowiedzieć się więcej." tabindex="2"><i class="fa-solid fa-circle-info fa-xl"></i></a>-->
+            <a class="menuBarItem" id="theme" title="Kliknij, aby zmienić motyw na ciemny." tabindex="3"><i class="fa-solid fa-circle-half-stroke fa-xl"></i></a>
+            <a class="menuBarItem button" id="index" title="Kliknij, aby przejść na stronę główną." tabindex="4"><i class="fa-solid fa-door-open fa-xl"></i></a>
+        </div>
+    </section>
+    <section id="loginFormContainer" class="formsContainer">
+        <h3>Logowanie:</h3>
+        <div class="form">
+            <input type="email" id="loginEmail" placeholder="Email" autocomplete="off" spellcheck="false" tabindex="6">
+            <input type="password" id="loginPassword" placeholder="Hasło" autocomplete="off" spellcheck="false" tabindex="7">
+            <a id="loginNext" class="menuBarItem" tabindex="8"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
+            <a id="loginSend" class="menuBarItem" tabindex="9"><i class="fa-solid fa-circle-arrow-right fa-lg"></i></a>
+        </div>
+    </section>
+    <section id="dashboardContainer" class="formsContainer">
+        <div id="songDashboardContainer" class="dashboardList"></div>
+        <div id="greetingDashboardContainer" class="dashboardList"></div>
+        <div id="timelineDashboardContainer" class=""></div>
+    </section>
+    
+
+
+    <script>
+        try {
+            document.body.dataset.theme = localStorage.getItem("theme");
+
+            if (document.body.dataset.theme == "light") {
+                document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny.";
+            } else {
+                document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
+            };
+        } catch (e) {
+            localStorage.setItem("theme", "dark");
+            document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
+        };
+    </script>
+    <script>
+        window.onload = function () {
+            if (typeof window.localStorage !== "undefined" && !localStorage.getItem('theme')) {
+                localStorage.setItem('theme', "dark");
+            };
+        };
+    </script>
+    <script>
+        const loginFormContainer = document.getElementById("loginFormContainer");
+
+        setTimeout(function load() {
+            loginFormContainer.classList.add("loginFormContainer-visible");
+        }, 800); //gryzie się z automatycznym logowaniem
+    </script>
+    <script language="javascript" src="assets/scripts/date.js"></script>
+    <script language="javascript" src="assets/scripts/themes.js"></script>
+    <script language="javascript" src="assets/scripts/loader.js"></script>
+    <script language="javascript" src="assets/scripts/locations.js"></script>
 
 
 
-	<script>
-		try {
-			document.body.dataset.theme = localStorage.getItem("theme");
 
-			if (document.body.dataset.theme == "light") {
-				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na ciemny.";
-			} else {
-				document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
-			};
-		} catch (e) {
-			localStorage.setItem("theme", "dark");
-			document.getElementById("theme").title = "Kliknij, aby zmienić motyw na jasny.";
-		};
-	</script>
-	<script>
-		window.onload = function () {
-			if (typeof window.localStorage !== "undefined" && !localStorage.getItem('theme')) {
-				localStorage.setItem('theme', "dark");
-			};
-		};
-	</script>
-	<script>
-		const loginFormContainer = document.getElementById("loginFormContainer");
-
-		setTimeout(function load() {
-			loginFormContainer.classList.add("loginFormContainer-visible");
-		}, 900);
-	</script>
-	<script language="javascript" src="assets/scripts/themes.js"></script>
-	<script language="javascript" src="assets/scripts/loader.js"></script>
-	<script language="javascript" src="assets/scripts/locations.js"></script>
-
-
-
-
-	<script type="module">
-
+    <script type="module">
 
 
 
@@ -96,11 +101,15 @@
         const auth = getAuth();
 
         setPersistence(auth, browserLocalPersistence)
-            .then(() => {
-                return signInWithEmailAndPassword(auth, email, password);
-            })
-            .catch((error) => {
-            });
+        .then(() => {
+            return signInWithEmailAndPassword(auth, email, password);
+        })
+        .catch((error) => {
+
+        });
+
+
+
 
 
         document.getElementById("loginNext").addEventListener("click", function (e) {
@@ -115,7 +124,17 @@
             if (key === "Enter") {
                 loginNext();
             };
-		});
+        });
+
+
+        document.getElementById("menuBarSecondContainer").children[1].addEventListener("click", function (e) {
+            silentLogout();
+        });
+        document.getElementById("menuBarSecondContainer").children[1].addEventListener("keyup", ({ key }) => {
+            if (key === "Enter") {
+                silentLogout();
+            };
+        });
 
 
 
@@ -186,28 +205,144 @@
                                 })
                                 .then(() => {
                                     chceckLogin();
+                                    return;
                                 })
                                 .catch((error) => {
-                                    //alert("error", "Błędne dane logowania!");
+                                    console.log("Błędne dane logowania!");
                                     loginBack();
-                                    return
+                                    return;
                                 });
                         } else {
-                            //alert("error", "Błędne dane logowania!");
-                            loginBack();
-                            return
+                            set(ref(db, "admins/" + user.uid),
+                                {
+                                    email: email.value,
+                                    lastLogin: getDateString3(),
+                                    permission: 0
+                                })
+                                .then(() => {
+                                    chceckLogin();
+                                    return;
+                                })
+                                .catch((error) => {
+                                    console.log("Błędne dane logowania!");
+                                    loginBack();
+                                    return;
+                                });
                         };
                     });
                 })
                 .catch((error) => {
-                    //alert("error", "Błędne dane logowania!");
+                    console.log("Błędne dane logowania!");
                     loginBack();
-                    return
+                    return;
                 });
         };
 
 
 
-	</script>
-</body >
-</html >
+
+        function loginAccess() {
+            console.log("Zalogowano!");
+            const email = document.getElementById("loginEmail");
+            const index = document.getElementById("menuBarSecondContainer").children[1];
+            const password = document.getElementById("loginPassword");
+            const loginFormContainer = document.getElementById("loginFormContainer");
+            const dashboardContainer = document.getElementById("dashboardContainer");
+
+            if (email.value != "") {
+                email.value = "";
+            };
+            if (password.value != "") {
+                password.value = "";
+            };
+            index.title = "Kliknij, aby się wylogować.";
+            loginFormContainer.classList.remove("loginFormContainer-visible");
+            dashboardContainer.classList.add("dashboardContainer-visible");
+            songs();
+        };
+
+
+        function chceckLogin() {
+            const db = getDatabase();
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const emailRef = ref(db, "admins/" + user.uid + "/email");
+                    onValue(emailRef, (snapshot) => {
+                        if (snapshot.exists()) {
+                            loginAccess();
+                        } else {
+                            silentLogout();
+                        };
+                    });
+                } else {
+                    loginBack();
+                }
+            });
+        }
+
+
+        function silentLogout() {
+            const auth = getAuth();
+            signOut(auth).then(() => {
+                //alert("info", "Zaloguj się!");
+            }).catch((error) => {
+                //alert("error", "Błąd wylogowywania!");
+            });
+        }
+
+
+
+
+
+        function songs() {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const db = getDatabase();
+                    const songsUidRef = ref(db, "songs/" + getDateString5());
+                    const songs = document.getElementById("songDashboardContainer");
+                    onValue(songsUidRef, (snapshot) => {
+                        songs.innerHTML = "";
+                        var i = snapshot.size;
+                        snapshot.forEach((childSnapshot) => {
+                            const songId = childSnapshot.key;
+                            var songsRef = query(ref(db, "songs/" + getDateString5() + "/" + songId), orderByChild("dateString"));
+
+                            var date = "";
+                            var name = "";
+
+                            onValue(songsRef, (snapshot) => {
+                                if (snapshot.exists()) {
+                                    date = snapshot.val().dateString;
+                                    name = snapshot.val().songName;
+                                };
+
+                            });
+                            let div = document.createElement("div");
+
+                            div.id = "song" + i;
+                            div.innerHTML = `<p>${name}</p><p>${date}</p>`;
+                            div.className = "songInDashboardContainer";
+                            songs.appendChild(div);
+                            i--;
+                        });
+                    });
+                };
+            });
+        };
+
+
+
+    </script>
+
+
+    <!--
+        ooooo        ooooo     ooo oooo    oooo ooooo
+        `888'        `888'     `8' `888   .8P'  `888'
+         888          888       8   888  d8'     888
+         888          888       8   88888[       888
+         888          888       8   888`88b.     888
+         888       o  `88.    .8'   888  `88b.   888
+        o888ooooood8    `YbodP'    o888o  o888o o888o
+    -->
+</body>
+</html>
